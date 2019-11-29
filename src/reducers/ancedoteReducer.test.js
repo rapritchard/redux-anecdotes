@@ -34,14 +34,7 @@ describe('anecdotes reducer', () => {
       votes: 0,
     },
   ];
-  const initialStateWithIds = [
-    { content: 'If it hurts, do it more often', id: '40573', votes: 0 },
-    {
-      content: 'Adding manpower to a late software project makes it later!',
-      id: '69151',
-      votes: 0,
-    },
-  ];
+
   test('should return correct initial state', () => {
     const state = [];
     const action = {
