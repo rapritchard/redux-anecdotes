@@ -21,7 +21,9 @@ const reducer = (state = initialState, action) => {
   console.log('state now: ', state);
   console.log('action', action);
   switch (action.type) {
-    case 'VOTE': 
+    case 'NEW_ANCEDOTE':
+      return [...state, action.data];
+    case 'VOTE': {
       const { id } = action.data;
       const ancedoteToChange = state.find((a) => a.id === id);
       const changedAncedote = {
@@ -29,6 +31,7 @@ const reducer = (state = initialState, action) => {
         votes: ancedoteToChange.votes + 1,
       };
       return state.map((ancedote) => (ancedote.id !== id ? ancedote : changedAncedote));
+    }
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import deepFreeze from 'deep-freeze';
-import ancedoteReducer from './anecdoteReducer';
+import anecdotesReducer from './anecdoteReducer';
 
-describe('ancedote reducer', () => {
+describe('anecdotes reducer', () => {
   const initialStateWithRandomId = [
     {
       content: 'If it hurts, do it more often',
@@ -43,13 +43,31 @@ describe('ancedote reducer', () => {
     },
   ];
   test('should return correct initial state', () => {
-    const state = {};
+    const state = [];
     const action = {
       type: 'DO_NOTHING',
     };
 
-    const newState = ancedoteReducer(undefined, action);
+    const newState = anecdotesReducer(undefined, action);
     expect(newState).toEqual(initialStateWithRandomId);
+  });
+
+  test('should add a new anecdotes', () => {
+    const state = [];
+    const action = {
+      type: 'NEW_ANCEDOTE',
+      data: {
+        content: 'Some new anecdotes',
+        id: '1',
+        votes: 0,
+      },
+    };
+
+    deepFreeze(state);
+    const newState = anecdotesReducer(state, action);
+
+    expect(newState.length).toBe(1);
+    expect(newState).toContainEqual(action.data);
   });
 
   test('should add 1 vote', () => {
@@ -74,7 +92,7 @@ describe('ancedote reducer', () => {
     };
 
     deepFreeze(state);
-    const newState = ancedoteReducer(state, action);
+    const newState = anecdotesReducer(state, action);
 
     expect(newState.length).toBe(2);
     expect(newState).toContainEqual(state[0]);
