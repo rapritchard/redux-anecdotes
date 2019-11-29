@@ -55,7 +55,7 @@ describe('anecdotes reducer', () => {
   test('should add a new anecdotes', () => {
     const state = [];
     const action = {
-      type: 'NEW_ANCEDOTE',
+      type: 'NEW_ANECDOTE',
       data: {
         content: 'Some new anecdotes',
         id: '1',
