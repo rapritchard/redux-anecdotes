@@ -15,7 +15,12 @@ const Anecdote = ({ anecdote, handleClick }) => (
 );
 
 const AnecdoteList = ({ store }) => {
-  const anecdotes = store.getState().ancedotes.sort((a, b) => b.votes - a.votes);
+  const { anecdotes, filter } = store.getState();
+  let filteredAnecdotes = anecdotes.sort((a, b) => b.votes - a.votes);
+
+  if (filter) {
+    filteredAnecdotes = anecdotes.filter(a => a.content.toLowerCase().indexOf(filter.toLowerCase()) !== -1);
+  }
 
   const handleVote = (anecdote) => {
     store.dispatch(voteAncedote(anecdote.id));
@@ -29,7 +34,7 @@ const AnecdoteList = ({ store }) => {
 
   return (
     <div>
-      {anecdotes.map((anecdote) => <Anecdote key={anecdote.id} anecdote={anecdote} handleClick={() => handleVote(anecdote)} />)}
+      {filteredAnecdotes.map((anecdote) => <Anecdote key={anecdote.id} anecdote={anecdote} handleClick={() => handleVote(anecdote)} />)}
     </div>
   );
 };
