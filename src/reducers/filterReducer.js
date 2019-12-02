@@ -7,4 +7,11 @@ const reducer = (state = '', action) => {
   }
 };
 
+export const setFilter = (filter) => ({
+  type: 'SET_FILTER',
+  data: {
+    filter,
+  },
+});
+
 export default reducer;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { createAncedote } from '../reducers/anecdoteReducer';
+import { connect } from 'react-redux';
 import { setNotification, clearNotification } from '../reducers/notificationReducer';
 
 const AnecdoteForm = (props) => {
@@ -8,11 +9,11 @@ const AnecdoteForm = (props) => {
     event.preventDefault();
     const content = event.target.anecdote.value;
     event.target.anecdote.value = '';
-    props.store.dispatch(createAncedote(content));
-    props.store.dispatch(setNotification(`New anecdote '${content}' created`));
+    props.createAncedote(content);
+    props.setNotification(`New anecdote '${content}' created`);
 
     setTimeout(() => {
-      props.store.dispatch(clearNotification());
+      props.clearNotification();
     }, 5000);
   };
 
@@ -27,4 +28,7 @@ const AnecdoteForm = (props) => {
   );
 };
 
-export default AnecdoteForm;
+export default connect(
+  null,
+  { createAncedote, setNotification, clearNotification}
+)(AnecdoteForm);

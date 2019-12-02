@@ -1,13 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { setFilter } from '../reducers/filterReducer';
 
-const Filter = ({ store }) => {
+const Filter = (props) => {
   const handleChange = (event) => {
-    store.dispatch({
-      type: 'SET_FILTER',
-      data: {
-        filter: event.target.value,
-      },
-    });
+    props.setFilter(event.target.value);
   };
 
   const style = {
@@ -16,9 +13,12 @@ const Filter = ({ store }) => {
 
   return (
     <div style={style}>
-      Filter <input onChange={handleChange} />
+      Filter <input onChange={handleChange}  />
     </div>
   );
 };
 
-export default Filter;
+export default connect(
+  null,
+  { setFilter },
+)(Filter);
